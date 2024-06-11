@@ -1,0 +1,25 @@
+<div class=" max-w-full lg:w-[50rem] rounded-2xl overflow-hidden shadow-xl bg-gray-50 mt-4">
+    <div class="p-10">
+        <div class="flex flex-row items-center justify-between">
+            <div class="font-bold text-xl">{{lesson.title}}</div>
+            <img [src]="lesson.watched ? checked : eyed" alt="icon watched" width="20px">
+        </div>
+        <p class="text-gray-700 text-base mt-5">
+            {{lesson.description}}
+        </p>
+    </div>
+    <div class="flex justify-around items-center bg-gray-400 text-center px-8">
+        <div class="flex flex-row items-center justify-start py-4">
+            <p class="mr-2 text-sm font-bold ">Instrutor:</p>
+            <span class="text-sm font-semibold text-gray-200 ">{{lesson.instructor}}</span>
+        </div>
+        <div class="flex flex-row items-center justify-start">
+            <p class="mr-2 text-sm font-bold">Criado:</p>
+            <span class="text-sm font-semibold text-gray-200 ">{{lesson.createdAt | customDate }}</span>
+        </div>
+        <div class="flex flex-row items-center justify-start">
+            <p class="mr-2 text-sm font-bold">Categoria:</p>
+            <span class="text-sm font-semibold text-gray-200 ">{{lesson.techType}}</span>
+        </div>
+    </div>
+</div>

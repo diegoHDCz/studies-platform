@@ -1,0 +1,12 @@
+textarea {
+    resize: none;
+    outline: none;
+}
+
+input {
+    outline: none;
+}
+
+select {
+    outline: none;
+}

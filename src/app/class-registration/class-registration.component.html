@@ -1,0 +1,67 @@
+<app-header [title]="title" [subtitle]="subtitle"></app-header>
+
+<main class="flex justify-center h-auto bg-gray-200">
+
+    <form class="p-8 -mt-12 bg-white border-2 border-blue-500 rounded-lg shadow-lg w-full max-w-4xl"
+        [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <h2 class="text-2xl font-bold mb-6">Seus dados</h2>
+
+        <hr class=" py-4 border-t-2 border-gray-300">
+
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium">Nome Completo</label>
+            <input type="text" id="name" formControlName="name"
+                class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+                Nome Completo é obrigatório.
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium">E-mail de 4 letras</label>
+            <input type="text" id="email" formControlName="email"
+                class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <div *ngIf="registrationForm.get('email')?.errors?.['required']">
+                Email é obrigatório.
+            </div>
+            <div *ngIf="registrationForm.get('email')?.errors?.['email']">
+                Email deve ser válido obrigatório.
+            </div>
+            <div *ngIf="registrationForm.get('email')?.errors?.['localPartLength']">
+                E-mail deve ser de 4 letras
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="techtype" class="block text-sm font-medium">Tipo de tecnologia</label>
+            <select type="" id="techtype" formControlName="techType"
+                class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <option value="">Selecione categoria da aula</option>
+                <option *ngFor="let tech of techTypes" [value]="tech">{{ tech }}</option>
+            </select>
+            <div *ngIf="registrationForm.get('techType')?.invalid && registrationForm.get('techType')?.touched">
+                Categoria é obrigatório.
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="classtitle" class="block text-sm font-medium">Título da aula</label>
+            <input type="text" id="classtitle" formControlName="classTitle"
+                class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <div *ngIf="registrationForm.get('classTitle')?.invalid && registrationForm.get('classTitle')?.touched">
+                Título da aula é obrigatório.
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium">Descrição da aula</label>
+            <textarea type="text" id="description" rows="4" cols="60" formControlName="description"
+                class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></textarea>
+            <div *ngIf="registrationForm.get('description')?.invalid && registrationForm.get('description')?.touched">
+                Descrição da aula da aula é obrigatório.
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" [disabled]="registrationForm.invalid"
+                class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600">Submit</button>
+        </div>
+    </form>
+</main>
