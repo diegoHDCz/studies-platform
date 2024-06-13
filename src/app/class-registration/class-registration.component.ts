@@ -9,10 +9,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { HeaderComponent } from '../header/header.component';
-import { ClassRegistration } from '../models/classRegistration';
+import { ClassRegistration, mapToEntity } from '../models/classRegistration';
+import { ApiService } from '../services/api.service';
+
 
 @Component({
   selector: 'app-class-registration',
@@ -22,8 +24,8 @@ import { ClassRegistration } from '../models/classRegistration';
   styleUrl: './class-registration.component.css',
 })
 export class ClassRegistrationComponent {
-  title = 'Que incrível, você gostaria de compartilhar seu conhecimento'
-  subtitle = 'Primeiro passo é preencher o formulário'
+  title = 'Que incrível, você gostaria de compartilhar seu conhecimento';
+  subtitle = 'Primeiro passo é preencher o formulário';
   registrationForm: FormGroup;
   techTypes = [
     'Front End',
@@ -33,6 +35,8 @@ export class ClassRegistrationComponent {
     'Cyber Security',
     'Software Architecture',
   ];
+  isLoading = false;
+
   emailValidator(length: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const email = control.value;
@@ -50,7 +54,8 @@ export class ClassRegistrationComponent {
       return null;
     };
   }
-  constructor(private fb: FormBuilder) {
+  //constructor
+  constructor(private fb: FormBuilder, private apiSerive: ApiService, private router: Router) {
     this.registrationForm = this.fb.group({
       name: ['', [Validators.required]],
       email: [
@@ -63,7 +68,9 @@ export class ClassRegistrationComponent {
     });
   }
 
-  ngOnInit(): void {}
+  startLoading() {
+    this.isLoading = true;
+  }
 
   onSubmit() {
     if (this.registrationForm.valid) {
@@ -75,13 +82,16 @@ export class ClassRegistrationComponent {
         formValue.classTitle,
         formValue.description
       );
-      console.log('Form Submitted', newRegistration);
-    } else {
-      console.log('Form not valid');
+
+      this.apiSerive.postData(mapToEntity(newRegistration)).subscribe({
+        next: () => this.router.navigate(['available-classes']),
+        error: (err) => console.log('deu ruim!'),
+      });
     }
+    this.isLoading = false;
   }
   // MOSTRAR O HTMX ENGINE.
-  // TRAZER OUTRA FORMA DE FORM 
+  // TRAZER OUTRA FORMA DE FORM
   //todo -> vanilla JS Comparar
   //melhorar a explicação do OOP
 }

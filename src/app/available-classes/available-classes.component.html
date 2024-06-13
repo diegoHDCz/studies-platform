@@ -17,7 +17,7 @@
     </div>
 </section>
 
-<section *ngFor="let lesson of searchTitle == '' ? lessons : filteredLessons " class="flex justify-center items-center">
+<section *ngFor="let lesson of filteredLessons " class="flex justify-center items-center">
 
     <app-card [lesson]="lesson"></app-card>
 
