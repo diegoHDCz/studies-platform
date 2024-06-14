@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 
-import { ClassRegistration } from '../models/classRegistration';
-import { ErrorService } from './error.service';
 import { LessonEntity } from '../interfaces/LessonEntity';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +16,15 @@ export class ApiService {
     return this.http.post<void>(`${this.url}/lessons  `, data).pipe(
       tap(() => {
         console.log('POST request was successful');
+      }),
+      catchError(this.errorService.handleError)
+    );
+  }
+
+  getList(): Observable<LessonEntity[]> {
+    return this.http.get<LessonEntity[]>(`${this.url}/lessons`).pipe(
+      tap((result) => {
+        console.log('result: ', result);
       }),
       catchError(this.errorService.handleError)
     );

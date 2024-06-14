@@ -15,7 +15,6 @@ import { HeaderComponent } from '../header/header.component';
 import { ClassRegistration, mapToEntity } from '../models/classRegistration';
 import { ApiService } from '../services/api.service';
 
-
 @Component({
   selector: 'app-class-registration',
   standalone: true,
@@ -55,7 +54,11 @@ export class ClassRegistrationComponent {
     };
   }
   //constructor
-  constructor(private fb: FormBuilder, private apiSerive: ApiService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private apiSerive: ApiService,
+    private router: Router
+  ) {
     this.registrationForm = this.fb.group({
       name: ['', [Validators.required]],
       email: [
@@ -90,8 +93,6 @@ export class ClassRegistrationComponent {
     }
     this.isLoading = false;
   }
-  // MOSTRAR O HTMX ENGINE.
-  // TRAZER OUTRA FORMA DE FORM
-  //todo -> vanilla JS Comparar
-  //melhorar a explicação do OOP
+  
+
 }

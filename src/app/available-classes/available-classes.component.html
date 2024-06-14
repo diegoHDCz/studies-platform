@@ -7,11 +7,12 @@
             placeholder="Filter by title"
             class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
     </div>
+ 
     <div class="flex-col">
         <label for="techtype" class="block text-sm font-medium medium text-gray-300">Tipo de tecnologia</label>
         <select id="techtype"
             class="mt-1 p-2 block w-full border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-            <option value="">Selecione categoria da aula</option>
+            <option value="">Selecione categoria    da aula</option>
             <option *ngFor="let tech of techTypes" [value]="tech">{{ tech }}</option>
         </select>
     </div>

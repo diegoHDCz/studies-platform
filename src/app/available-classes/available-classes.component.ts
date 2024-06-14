@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { CardComponent } from '../card/card.component';
 import { HeaderComponent } from '../header/header.component';
-import { AvailableClass } from '../models/availableClass';
-
+import { AvailableClass, mapToAvailable } from '../models/availableClass';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-available-classes',
@@ -25,37 +25,26 @@ export class AvailableClassesComponent {
     'Software Architecture',
   ];
 
-  lessons: AvailableClass[] = [
-    {
-      id: 2,
-      title: 'Advanced Angular',
-      instructor: 'Jane Smith',
-      description: 'Deep dive into Angular advanced topics.',
-      techType: 'Front End',
-      createdAt: new Date(),
-      watched: true,
-    },
-    {
-      id: 3,
-      title: 'TypeScript Fundamentals',
-      instructor: 'Emily Johnson',
-      description: 'Learn the basics of TypeScript.',
-      techType: 'Front End',
-      createdAt: new Date(),
-      watched: false,
-    },
-    {
-      id: 1,
-      title: 'Angular Basics',
-      instructor: 'John Doe',
-      description: 'Introduction to Angular fundamentals.',
-      techType: 'Front End',
-      createdAt: new Date(),
-      watched: false,
-    },
-  ];
-  declare searchTitle: string;
+  constructor(private apiService: ApiService) {}
 
+  lessons: AvailableClass[] = [];
+
+  list() {
+    this.apiService.getList().subscribe({
+      next: (result) => {
+        this.lessons = mapToAvailable(result);
+        console.log('deu certo', this.lessons);
+      },
+      error: (err) => console.log('deu ruim!'),
+    });
+  }
+
+  ngOnInit() {
+    this.list();
+  }
+
+  declare searchTitle: string;
+  declare banana: string;
 
   get filteredLessons(): AvailableClass[] {
     if (this.searchTitle) {
@@ -63,7 +52,7 @@ export class AvailableClassesComponent {
         lesson.title.toLowerCase().includes(this.searchTitle.toLowerCase())
       );
     }
-   
+
     return this.lessons;
   }
 }

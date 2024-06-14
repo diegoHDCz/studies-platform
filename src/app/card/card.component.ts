@@ -4,6 +4,7 @@ import { Component, Input, Pipe } from '@angular/core';
 import { AvailableClass } from '../models/availableClass';
 import { CustomDatePipe } from '../utils/custom-date';
 
+
 @Component({
   selector: 'app-card',
   standalone: true,

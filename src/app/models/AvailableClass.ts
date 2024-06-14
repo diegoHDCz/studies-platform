@@ -1,3 +1,5 @@
+import { LessonEntity } from '../interfaces/LessonEntity';
+
 export class AvailableClass {
   constructor(
     public id: number,
@@ -8,4 +10,17 @@ export class AvailableClass {
     public createdAt: Date,
     public watched: boolean
   ) {}
+}
+
+export function mapToAvailable(data: LessonEntity[]): AvailableClass[] {
+    return data.map(lesson=>({
+      id: lesson.id!,
+      title: lesson.title,
+      instructor: lesson.instructor,
+      description: lesson.description,
+      techType: lesson.techType,
+      createdAt: new Date(lesson.createdAt!),
+      watched: lesson.watched!
+
+    }))
 }
